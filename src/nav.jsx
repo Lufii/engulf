@@ -52,13 +52,36 @@ class Nav extends Component {
 
 class Input extends Component{
   render(){
-  if(this.props.ask=='create')
+  if(this.props.ask==='create')
     return(
-    <div className='search'>
-      <input type='text' placeholder="Product Name"></input>
+    <div className='iName'>
+      <input type='text' placeholder="Product name"></input>
+      <input type='text' placeholder="Product type"></input>
+      <input type='text' placeholder="Warehouse area"></input>
+      <input type='number' placeholder="Stock"></input>
+      <input type='number' placeholder="Pieces or meters per box"></input>
       <button onClick={() => {
-        alert(this.props.thing)
-      }} type='submit'>Submit</button>
+
+
+  /*      fetch('https://localhost:3000/product/create/', {
+  method: 'POST',
+  headers: {
+    'name': 'A40W',
+    'type': 'ancadrament',
+    'area': 'J',
+    'stock': 200,
+    'mppb': 72
+  },
+  body: JSON.stringify({
+    firstParam: 'yourValue',
+    secondParam: 'yourOtherValue',
+  })
+})
+
+
+}*/
+console.log('create button pushed')
+}} type='submit'>Create</button>
     </div>
   )
 else {

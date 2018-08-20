@@ -1,3 +1,10 @@
+.iName input{
+  display: block;
+  margin: auto;
+  margin-bottom:4px;
+  position: relative;
+  text-align: center;
+}
 .nav {
   text-align: center;
   color: white;
