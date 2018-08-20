@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './nav.css';
+const axios = require('axios');
 
 class Nav extends Component {
   constructor(props){
@@ -63,25 +64,28 @@ class Input extends Component{
       <button onClick={() => {
 
 
-  /*      fetch('https://localhost:3000/product/create/', {
-  method: 'POST',
-  headers: {
-    'name': 'A40W',
-    'type': 'ancadrament',
-    'area': 'J',
-    'stock': 200,
-    'mppb': 72
-  },
-  body: JSON.stringify({
-    firstParam: 'yourValue',
-    secondParam: 'yourOtherValue',
-  })
-})
+
+/*
+     axios.post('https://localhost:3000/product/create',{
+       name: 'asd',
+       type: 'ccc'
+     }).then(function (response){
+       console.log(response);
+     }).catch(function (error){
+      console.log(error);
+     })
+*/
 
 
-}*/
-console.log('create button pushed')
-}} type='submit'>Create</button>
+
+
+
+
+
+
+console.log('create button pushed');
+}}
+type='submit'>Create</button>
     </div>
   )
 else {
