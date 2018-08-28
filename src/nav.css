@@ -1,7 +1,7 @@
-.iName input{
+#inputt input{
   display: block;
   margin: auto;
-  margin-bottom:4px;
+  margin-bottom: 4px;
   position: relative;
   text-align: center;
 }

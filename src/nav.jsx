@@ -55,12 +55,48 @@ class Input extends Component{
   render(){
   if(this.props.ask==='create')
     return(
-    <div className='iName'>
+    <div className='iCreate' id='inputt'>
       <input type='text' placeholder="Product name"></input>
       <input type='text' placeholder="Product type"></input>
       <input type='text' placeholder="Warehouse area"></input>
       <input type='number' placeholder="Stock"></input>
       <input type='number' placeholder="Pieces or meters per box"></input>
+      <button onClick={() => {
+
+
+
+
+        axios({
+     method:'POST',
+     url:'https://pluckforengulf.herokuapp.com/product/create',
+     data:{
+       name: this.input.value[0],
+       type: this.input.value[1],
+     },
+   }).then(function (response){
+       console.log(response);
+     }).catch(function (error){
+      console.log(error);
+     })
+
+
+
+
+
+
+
+
+
+console.log('create button pushed');
+}}
+type='submit'>Create</button>
+    </div>
+  )
+else
+  if(this.props.ask==='search')
+    return(
+    <div className='iSearch' id='inputt'>
+      <input type='text' placeholder="Product name"></input>
       <button onClick={() => {
 
 
@@ -83,11 +119,47 @@ class Input extends Component{
 
 
 
-console.log('create button pushed');
+console.log('search button pushed');
 }}
-type='submit'>Create</button>
+type='submit'>Search</button>
     </div>
-  )
+)
+else
+if(this.props.ask==='update')
+  return(
+  <div className='iUpdate' id='inputt'>
+  <input type='text' placeholder="Product name"></input>
+  <input type='text' placeholder="Product type"></input>
+  <input type='text' placeholder="Warehouse area"></input>
+  <input type='number' placeholder="Stock"></input>
+  <input type='number' placeholder="Pieces or meters per box"></input>
+    <button onClick={() => {
+
+
+
+/*
+   axios.post('https://localhost:3000/product/create',{
+     name: 'asd',
+     type: 'ccc'
+   }).then(function (response){
+     console.log(response);
+   }).catch(function (error){
+    console.log(error);
+   })
+*/
+
+
+
+
+
+
+
+
+console.log('search button pushed');
+}}
+type='submit'>Update</button>
+  </div>
+)
 else {
   return null
 }}
