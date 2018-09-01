@@ -1,10 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import Nav from './nav.jsx';
+import Engulf from './view/engulf.jsx';
 import registerServiceWorker from './registerServiceWorker';
 
 
-ReactDOM.render(<Nav />, document.getElementById('root'));
+ReactDOM.render(<Engulf />, document.getElementById('root'));
 
 registerServiceWorker();
