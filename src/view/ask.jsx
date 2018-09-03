@@ -5,7 +5,8 @@ class Ask extends Component{
   constructor(props){
     super(props);
     this.state = {
-      axiosResponse: null,
+      axiosResponse: 'initial',
+      ask: '',
       name:'',
       type:'',
       area:'',
@@ -22,6 +23,8 @@ class Ask extends Component{
     this.handleCreate = this.handleCreate.bind(this);
     this.handleSearch = this.handleSearch.bind(this);
   }
+
+
 
   handleName(event){
     this.setState({name: event.target.value.toUpperCase()});
@@ -44,45 +47,43 @@ class Ask extends Component{
   }
 
   handleCreate(event){
-    var passState = this.state;
+    event.preventDefault();
+    var self = this.state;
     axios({
       method:'POST',
       url:'https://pluckforengulf.herokuapp.com/product/create',
       data:{
-        name: passState.name,
-        type: passState.type,
-        area: passState.area,
-        stock: passState.stock,
-        mppb: passState.mppb,
+        name: self.name,
+        type: self.type,
+        area: self.area,
+        stock: self.stock,
+        mppb: self.mppb,
       },
     }).then(function (response){
       console.log(response);
-      passState.axiosResponse = passState.name+' created successfully';
+      if(response.status ===200)
+      return response;
     }).catch(function (error){
       console.log(error);
-      passState.axiosResponse = passState.name+" not created. No duplicate names, please.";
-      alert(passState.axiosResponse);
     })
-    this.setState({axiosResponse: passState.axiosResponse});
-    console.log('idkthis'+ this.state.axiosResponse);
-    event.preventDefault();
+
   }
 
 
   handleSearch(event){
     event.preventDefault();
     console.log('Search pressed');
-    const passState = this.state;
+    const self = this.state;
 
     axios({
       method:'GET',
-      url:'https://pluckforengulf.herokuapp.com/product?name='+passState.name,
+      url:'https://pluckforengulf.herokuapp.com/product?name='+self.name,
     }).then(function (response){
       console.log(response);
     }).catch(function (error){
       console.log(error);
-      console.log(passState.name+" not found.");
-      alert(passState.name+" not found.");
+      console.log(self.name+" not found.");
+      alert(self.name+" not found.");
     })
 
   }
@@ -118,22 +119,7 @@ class Ask extends Component{
       <input type='text' placeholder="Warehouse area"></input>
       <input type='number' placeholder="Stock"></input>
       <input type='number' placeholder="Pieces or meters per box"></input>
-      <button onClick={() => {
-
-        /*
-        axios.post('https://localhost:3000/product/create',{
-        name: 'asd',
-        type: 'ccc'
-      }).then(function (response){
-      console.log(response);
-    }).catch(function (error){
-    console.log(error);
-  })
-  */
-
-  console.log('search button pushed');
-}}
-type='submit'>Update</button>
+      <input type='submit' value='Update'></input>
 </div>
 )
 else {
