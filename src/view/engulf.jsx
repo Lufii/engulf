@@ -9,7 +9,7 @@ class Engulf extends Component {
     super(props);
     this.state={
       ask: null,
-      say: 'blabla',
+      say: null,
     }
   }
 

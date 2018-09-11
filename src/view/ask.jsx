@@ -6,7 +6,7 @@ class Ask extends Component{
     super(props);
     this.state = {
       axiosResponse: 'initial',
-      ask: '',
+      say: '',
       name:'',
       type:'',
       area:'',
@@ -61,10 +61,14 @@ class Ask extends Component{
       },
     }).then(function (response){
       console.log(response);
-      if(response.status ===200)
+      if(response.status === 200){}
+      self.say = 'Create successful';
+      console.log(self.say);
       return response;
     }).catch(function (error){
       console.log(error);
+      self.say = 'Create unsuccessful';
+      console.log(self.say);
     })
 
   }
@@ -74,7 +78,7 @@ class Ask extends Component{
     event.preventDefault();
     console.log('Search pressed');
     const self = this.state;
-
+    console.log(this.state.say)
     axios({
       method:'GET',
       url:'https://pluckforengulf.herokuapp.com/product?name='+self.name,
