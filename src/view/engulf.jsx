@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import './nav.css';
 import logo from './logo.svg';
-import Ask from './ask.jsx';
-import Say from './say.jsx';
+
 
 class Engulf extends Component {
   constructor(props){
@@ -17,18 +16,40 @@ class Engulf extends Component {
   render() {
     return (
       <div className='engulf'>
-      <div className='nav'>
+      <Logo />
+      <Nav />
+      <Ask />
+      <Say />
+      </div>);
+  }
+  }
 
-      <img src={logo} onClick={() => {
-        alert(this.state.ask)
-      }} className='app-logo' alt='logo'></img>
+  class Logo extends Component {
+    render(){
+      return(
+        <div class='logo'>
+        <img src={logo} onClick={() => {
+          alert(this.state.ask)
+        }} className='app-logo' alt='logo'></img>
 
-      <div className='engulf'>
-      <h1>Welcome to Engulf</h1>
+        <h1>Welcome to Engulf</h1>
+        </div>
+      );
+    }
+  }
+
+class Nav extends Component{
+  constructor(props){
+    super(props);
+    this.state={
+      ask: null,
+    }
+  }
+
+  render(){
+    return (
+      <div class='nav'>
       <ul>
-      <li onClick={() => {
-        this.setState({ask: 'log'})
-      }}>Log</li>
       <li onClick={() => {
         this.setState({ask: 'search'})
       }}>Search</li>
@@ -39,22 +60,32 @@ class Engulf extends Component {
         this.setState({ask: 'update'})
       }}>Update</li>
       <li onClick={() => {
-        this.setState({ask: 'inbound'})
-      }}>Inbound</li>
-      <li onClick={() => {
-        this.setState({ask: 'outbound'})
-      }}>Outbound</li>
+        this.setState({ask: 'delete'})
+      }}>Delete</li>
       </ul>
       </div>
-
-      </div>
-      <br/>
-      <Ask ask={this.state.ask}/>
-      <br/>
-      <Say say={this.state.say}/>
-      </div>
-    )}
+    );
   }
+}
 
+class Ask extends Component {
+  render(){
+    return(
+      <div class='ask'>
+
+      </div>
+    );
+  }
+}
+
+class Say extends Component {
+  render(){
+    return(
+      <div class='ask'>
+
+      </div>
+    );
+  }
+}
 
   export default Engulf;
