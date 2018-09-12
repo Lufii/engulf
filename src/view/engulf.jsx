@@ -7,8 +7,9 @@ class Engulf extends Component {
   constructor(props){
     super(props);
     this.state={
-      ask: null,
-      say: null,
+      nav: 'initial',
+      ask: 'initial',
+      say: 'initial',
     }
   }
 
@@ -20,7 +21,9 @@ class Engulf extends Component {
       <Nav />
       <Ask />
       <Say />
+      <button onClick= {()=>{alert(this.state.nav)}}>clickthis</button>
       </div>);
+
   }
   }
 
@@ -41,9 +44,7 @@ class Engulf extends Component {
 class Nav extends Component{
   constructor(props){
     super(props);
-    this.state={
-      ask: null,
-    }
+
   }
 
   render(){
