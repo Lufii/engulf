@@ -211,7 +211,11 @@ class Ask extends Component {
       },
     }).then(function (response){
       console.log(response);
+      if(response.data.n!==0)
       self2.sayChange(self.name+' deleted');
+      else {
+        self2.sayChange(self.name+' not deleted. Please make sure the name exists.');
+      }
     }).catch(function (error){
       console.log(error);
       console.log(self.name+" not found.");
