@@ -9,8 +9,7 @@ class Engulf extends Component {
     super(props);
     this.state={
       nav: 'initial',
-      ask: 'initial',
-      say: 'initial',
+      say: null,
     }
   }
 
@@ -18,17 +17,22 @@ class Engulf extends Component {
         this.setState({nav: passNavVal})
     }
 
+  passSay = (passSayVal) =>{
+        this.setState({say: passSayVal})
+  }
+
 
   render() {
     return (
       <div className='engulf'>
       <Logo />
       <Nav navChange={this.passNav}/>
-      <Ask navVal={this.state.nav}/>
-      <Say />
+      <Ask navVal={this.state.nav} sayChange={this.passSay}/>
+      <br/>
+      <Say sayVal={this.state.say}/>
       <br/><br/><br/><br/>
       <button onClick= {()=>{alert(this.state.nav)}}>navVal</button><br/>
-      <button onClick= {()=>{alert(this.state.ask)}}>askVal</button>
+      <button onClick= {()=>{alert(this.state.say)}}>sayVal</button>
       </div>);
 
   }
@@ -116,6 +120,8 @@ class Ask extends Component {
   handleCreate(event){
     event.preventDefault();
     var self = this.state;
+    var self2 = this.props;
+    self2.sayChange('Loading...');
     axios({
       method:'POST',
       url:'https://pluckforengulf.herokuapp.com/product/create',
@@ -129,12 +135,11 @@ class Ask extends Component {
     }).then(function (response){
       console.log(response);
       if(response.status === 200){}
-      self.say = 'Create successful';
-      console.log(self.say);
+      self2.sayChange(self.name+' create successful');
       return response;
     }).catch(function (error){
       console.log(error);
-      self.say = 'Create unsuccessful';
+      self2.sayChange(self.name+' create unsuccessful. Please make sure the product name does not already exist.');
       console.log(self.say);
     })
 
@@ -142,6 +147,8 @@ class Ask extends Component {
 
   handleSearch(event){
     event.preventDefault();
+    var self2 = this.props;
+    self2.sayChange('Loading...');
     console.log('Search pressed');
     const self = this.state;
     console.log(this.state.say)
@@ -149,11 +156,13 @@ class Ask extends Component {
       method:'GET',
       url:'https://pluckforengulf.herokuapp.com/product?name='+self.name,
     }).then(function (response){
-      console.log(response);
+      console.log(response.data[0].stock);
+      var sRes = response.data[0];
+      self2.sayChange(sRes.name+' / Type: '+sRes.type+' / Area: '+sRes.area+' / Stock: '+sRes.stock+' / Mppb: '+sRes.mppb);
     }).catch(function (error){
       console.log(error);
       console.log(self.name+" not found.");
-      alert(self.name+" not found.");
+      self2.sayChange(self.name+' not found');
     })
 
   }
@@ -207,10 +216,12 @@ else {
 }
 
 class Say extends Component {
+
+
   render(){
     return(
-      <div className='ask'>
-
+      <div className='say'>
+{this.props.sayVal}
       </div>
     );
   }
