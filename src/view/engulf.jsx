@@ -30,9 +30,6 @@ class Engulf extends Component {
       <Ask navVal={this.state.nav} sayChange={this.passSay}/>
       <br/>
       <Say sayVal={this.state.say}/>
-      <br/><br/><br/><br/>
-      <button onClick= {()=>{alert(this.state.nav)}}>navVal</button><br/>
-      <button onClick= {()=>{alert(this.state.say)}}>sayVal</button>
       </div>);
 
   }
@@ -95,6 +92,8 @@ class Ask extends Component {
 
     this.handleCreate = this.handleCreate.bind(this);
     this.handleSearch = this.handleSearch.bind(this);
+    this.handleUpdate = this.handleUpdate.bind(this);
+    this.handleDelete = this.handleDelete.bind(this);
   }
 
   handleName(event){
@@ -145,6 +144,36 @@ class Ask extends Component {
 
   }
 
+  handleUpdate(event){
+    event.preventDefault();
+    var self = this.state;
+    var self2 = this.props;
+    self2.sayChange('Loading...');
+    axios({
+      method:'POST',
+      url:'https://pluckforengulf.herokuapp.com/product/update',
+      data:{
+        name: self.name,
+        type: self.type,
+        area: self.area,
+        stock: self.stock,
+        mppb: self.mppb,
+      },
+    }).then(function (response){
+      console.log(response);
+      if(response.status === 200 && response.data.nModified!==0){
+      self2.sayChange(self.name+' update successful');
+      return response;
+    } else{
+      self2.sayChange(self.name+' update unsuccessful. Please make sure the name exists and the values are not unchanged.');
+    }}).catch(function (error){
+      console.log(error);
+      self2.sayChange(self.name+' update unsuccessful. Please double check the name.');
+      console.log(self.say);
+    })
+
+  }
+
   handleSearch(event){
     event.preventDefault();
     var self2 = this.props;
@@ -156,13 +185,37 @@ class Ask extends Component {
       method:'GET',
       url:'https://pluckforengulf.herokuapp.com/product?name='+self.name,
     }).then(function (response){
-      console.log(response.data[0].stock);
+      console.log(response);
       var sRes = response.data[0];
       self2.sayChange(sRes.name+' / Type: '+sRes.type+' / Area: '+sRes.area+' / Stock: '+sRes.stock+' / Mppb: '+sRes.mppb);
     }).catch(function (error){
       console.log(error);
       console.log(self.name+" not found.");
       self2.sayChange(self.name+' not found');
+    })
+
+  }
+
+  handleDelete(event){
+    event.preventDefault();
+    var self2 = this.props;
+    self2.sayChange('Loading...');
+    console.log('Delete pressed');
+    const self = this.state;
+    console.log(this.state.say)
+    axios({
+      method:'POST',
+      url:'https://pluckforengulf.herokuapp.com/product/delete',
+      data:{
+        name: self.name,
+      },
+    }).then(function (response){
+      console.log(response);
+      self2.sayChange(self.name+' deleted');
+    }).catch(function (error){
+      console.log(error);
+      console.log(self.name+" not found.");
+      self2.sayChange(self.name+' not deleted. Please double check product name');
     })
 
   }
@@ -182,7 +235,7 @@ class Ask extends Component {
           else
       if(this.props.navVal==='update')
           return(
-<form className='ask'>
+<form className='ask' onSubmit={this.handleUpdate}>
             <input type='text' value={this.state.name} onChange={this.handleName} placeholder="Product name"></input>
             <input type='text' value={this.state.type} onChange={this.handleType} placeholder="Product type"></input>
             <input type='text' value={this.state.area} onChange={this.handleArea} placeholder="Warehouse area"></input>
@@ -202,7 +255,7 @@ class Ask extends Component {
 else {
   if(this.props.navVal==='delete')
       return(
-<form className='ask'>
+<form className='ask' onSubmit={this.handleDelete}>
         <input type='text' value={this.state.name} onChange={this.handleName} placeholder="Product name"></input>
         <input type='submit' value='Delete'></input>
 </form>
