@@ -13,15 +13,21 @@ class Engulf extends Component {
     }
   }
 
+  passNav = (passNavVal) => {
+        this.setState({nav: passNavVal})
+    }
+
 
   render() {
     return (
       <div className='engulf'>
       <Logo />
-      <Nav />
-      <Ask />
+      <Nav navChange={this.passNav}/>
+      <Ask navVal={this.state.nav}/>
       <Say />
-      <button onClick= {()=>{alert(this.state.nav)}}>clickthis</button>
+      <br/><br/><br/><br/>
+      <button onClick= {()=>{alert(this.state.nav)}}>navVal</button><br/>
+      <button onClick= {()=>{alert(this.state.ask)}}>askVal</button>
       </div>);
 
   }
@@ -42,26 +48,21 @@ class Engulf extends Component {
   }
 
 class Nav extends Component{
-  constructor(props){
-    super(props);
-
-  }
-
   render(){
     return (
       <div class='nav'>
       <ul>
       <li onClick={() => {
-        this.setState({ask: 'search'})
+        this.props.navChange('search')
       }}>Search</li>
       <li onClick={() => {
-        this.setState({ask: 'create'})
+        this.props.navChange('create')
       }}>Create</li>
       <li onClick={() => {
-        this.setState({ask: 'update'})
+        this.props.navChange('update')
       }}>Update</li>
       <li onClick={() => {
-        this.setState({ask: 'delete'})
+        this.props.navChange('delete')
       }}>Delete</li>
       </ul>
       </div>
@@ -71,11 +72,50 @@ class Nav extends Component{
 
 class Ask extends Component {
   render(){
-    return(
-      <div class='ask'>
+      if(this.props.navVal==='create')
+          return(
+<form class='ask'>
+            <input type='text'  placeholder="Product name"></input>
+            <input type='text'  placeholder="Product type"></input>
+            <input type='text'  placeholder="Warehouse area"></input>
+            <input type='number'  placeholder="Stock"></input>
+            <input type='number'  placeholder="Meters or pieces per box"></input>
+            <input type='submit' value='Create'></input>
+</form>
+          )
+          else
+      if(this.props.navVal==='search')
+          return(
+<form class='ask'>
+            <input type='text'  placeholder="Product name"></input>
+            <input type='submit'></input>
+</form>
+          )
+          else
+      if(this.props.navVal==='update')
+          return(
+<form class='ask'>
+            <input type='text' placeholder="Product name"></input>
+            <input type='text' placeholder="Product type"></input>
+            <input type='text' placeholder="Warehouse area"></input>
+            <input type='number' placeholder="Stock"></input>
+            <input type='number' placeholder="Meters or pieces per box"></input>
+            <input type='submit' value='Update'></input>
+</form>
+        )
+else {
+  if(this.props.navVal==='delete')
+      return(
+<form class='ask'>
+        <input type='text'  placeholder="Product name"></input>
+        <input type='submit'></input>
+</form>
+      )
+      else {
+        return(null);
+      }
+}
 
-      </div>
-    );
   }
 }
 
