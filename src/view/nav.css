@@ -1,5 +1,6 @@
 input[type=number]::-webkit-inner-spin-button,
-input[type=number]::-webkit-outer-spin-button {
+input[type=number]::-webkit-outer-spin-button
+ {
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
@@ -44,11 +45,29 @@ li{
 
 .app-logo {
   padding: 50px;
+
+  -webkit-animation: app-logo-spin infinite 20s linear;
+  -moz-animation: app-logo-spin infinite 20s linear;
+  -o-animation: app-logo-spin infinite 20s linear;
+  -ms-animation: app-logo-spin infinite 20s linear;
   animation: app-logo-spin infinite 20s linear;
+
   height: 200px;
 }
 
 @keyframes app-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+  from {
+    -webkit-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  to {
+    -webkit-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -o-atransform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
 }
