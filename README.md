@@ -9,5 +9,7 @@ Update - updates the product with the newly introduced values. If values are omi
 Delete - deletes the specified product or returns an error if it is not found.
 
 For a local copy:
-npm install
-npm start
+
+"npm install"
+
+"npm start"
