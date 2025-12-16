@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import './nav.css';
 import logo from './logo.svg';
-const axios = require('axios');
+import axios from 'axios';
 
 
 class Engulf extends Component {
